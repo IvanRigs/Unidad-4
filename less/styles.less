@@ -1,0 +1,99 @@
+@background-dark: rgb(22, 22, 22);
+@background-medium-dark: rgb(32, 32, 32);
+@primary-color: rgb(205, 129, 17);
+@primary-active-color: rgb(151, 94, 13);
+@input-height: 50px;
+
+@colores-li: #2250e6, #9e37d1, #aa2518, #3bc32c;
+
+
+body {
+  background-color: @background-dark;
+}
+
+.contenido-principal {
+  width: 100%;
+  height: 100vh;
+  background-color: @background-medium-dark;
+}
+
+#contForm {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.alineacionInputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  height: 70%;
+
+  .mb-3 {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-control {
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    height: @input-height;
+  }
+
+  input::placeholder {
+    color: white;
+  }
+
+  input:focus {
+    border: 2px solid white;
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    background-color: @primary-color;
+    border: none;
+    width: 100%;
+    height: @input-height;
+    margin-top: 10px;
+  }
+
+  .btn-primary:active {
+    background-color: @primary-active-color;
+  }
+}
+
+.fs-1 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#contForm > form {
+  /*background-color: lightblue;*/
+  width: 33%;
+  padding: 15px;
+  height: 75vh;
+}
+
+.border-rounded {
+  border-radius: 16px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+}
+
+each(@colores-li, {
+  .li-@{index} {
+    color: @value;
+    background-color: @background-medium-dark;
+    &:hover{
+      color: white
+    }
+  }
+});
