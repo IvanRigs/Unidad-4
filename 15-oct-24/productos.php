@@ -121,81 +121,33 @@
         </header>
 
         <main class="container-fluid pb-3 overflow-auto">
-            <div class="card">
-                <h5 class="card-header">Featured</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="carouselExampleCaptions" class="carousel slide w-100">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eismod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="row">
+                <?php
+                    include './app/ProductController.php';
+                    $productController = new ProductController();
+                    $products = $productController->getProducts();
 
-            <div class="card mt-3">
-                <h5 class="card-header">Historial de pedidos</h5>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
-                </table>
+                    if (!empty($products) && isset($products['data'])) {
+                        foreach ($products['data'] as $product) {
+                            echo '<div class="col-md-4">';
+                            echo '    <div class="card mb-4 shadow-sm">';
+                            echo '        <img src="' . htmlspecialchars($product['cover']) . '" class="card-img-top" alt="' . htmlspecialchars($product['name']) . '">';
+                            echo '        <div class="card-body">';
+                            echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
+                            echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
+                            echo '            <a href="detalleProducto.html" class="btn btn-primary">Ver mas</a>';
+                            echo '        </div>';
+                            echo '    </div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<div class="col-md-12">';
+                        echo '<div class="alert alert-warning" role="alert">No products available.</div>';
+                        echo '</div>';
+                    }
+                ?>
             </div>
-        </main>
+        </div>
     </div>
 </div>
 
