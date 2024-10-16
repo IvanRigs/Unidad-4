@@ -68,7 +68,12 @@ class AuthController
     private function setUserSession($userData) {
         $_SESSION['user_id'] = $userData['id'];
         $_SESSION['user_name'] = $userData['name'];
+        $_SESSION['user_token'] = $userData['token'];
         $_SESSION['user_data'] = $userData;
+
+        echo '<pre>';
+        print_r($_SESSION);
+        echo '</pre>';
     }
 
     // Método para manejar errores de inicio de sesión

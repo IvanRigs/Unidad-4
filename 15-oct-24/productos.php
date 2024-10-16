@@ -135,7 +135,7 @@
                             echo '        <div class="card-body">';
                             echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
                             echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
-                            echo '            <a href="detalleProducto.html" class="btn btn-primary">Ver mas</a>';
+                            echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver más</a>';
                             echo '        </div>';
                             echo '    </div>';
                             echo '</div>';

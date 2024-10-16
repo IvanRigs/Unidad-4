@@ -1,7 +1,12 @@
 <?php
+session_start();
 class ProductController {
     public function getProducts() {
         $curl = curl_init();
+
+     
+
+        $token = $_SESSION['user_token'];
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
