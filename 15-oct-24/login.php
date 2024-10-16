@@ -15,15 +15,16 @@
                     <img src="https://images.pexels.com/photos/2506993/pexels-photo-2506993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="img-fluid" alt="...">
                 </div>
 
-                <form action="/AuthController.php" method="post" class="col-md-6">
+                <form  method="POST" action="./app/AuthController.php" class="col-md-6">
+                    <input type="hidden" name="action" value="access">
                     <div class="text-center mb-3">
                         <img src="https://content.wepik.com/statics/68342939/preview-page0.jpg" class="rounded float-start w-25" alt="...">
                     </div>
                     <div class="mb-3">
-                        <input type="email" class="form-control" id="staticEmail" placeholder="Email" required name="email" aria-label="Email">
+                        <input type="email" class="form-control" id="email" placeholder="Email" required name="email" aria-label="Email">
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" id="inputPassword" required name="contrasenia" aria-label="Password" placeholder="contraseña">
+                        <input type="password" class="form-control" required name="password" id="password" aria-label="Password" placeholder="contraseña">
                     </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">Login</button>
