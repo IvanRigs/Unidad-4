@@ -16,17 +16,17 @@ $productData = $productResponse['data']; // Acceder directamente a los datos del
 </head>
 <body>
 
-<div class="container-fluid d-flex flex-row p-0">
-    <!-- Sidebar -->
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark w-25">
-        <!-- Sidebar content -->
-    </div>
+<div class="container-fluid">
+    <div class="row">
 
-    <!-- Main content -->
-    <div class="flex-grow-1">
-        <header class="py-3 mb-4 border-bottom shadow">
-            <!-- Navbar content -->
-        </header>
+    <?php 
+        require './sidebar.html';
+    ?>
+
+    <div class="col p-0 m-0">
+        <?php 
+            require './navbar.html';
+        ?>
 
         <main class="container-fluid pb-3 overflow-auto">
             <div class="card">
@@ -86,6 +86,8 @@ $productData = $productResponse['data']; // Acceder directamente a los datos del
                 </table>
             </div>
         </main>
+    </div>
+
     </div>
 </div>
 

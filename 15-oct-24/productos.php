@@ -29,118 +29,29 @@
 	 	
 	 	<div class="container-fluid">
 	 		<div class="row">
-	 			<div class="col-2 p-0 m-0 d-none d-md-block">
-	 				<div class="d-flex flex-column min-vh-100 flex-shrink-0 p-3 text-white bg-dark" style="">
-					    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-					      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-					      <span class="fs-4">Sidebar</span>
-					    </a>
-					    <hr>
-					    <ul class="nav nav-pills  flex-column mb-auto">
-					      <li class="nav-item">
-					        <a href="#" class="nav-link active" aria-current="page">
-					          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-					          Home
-					        </a>
-					      </li>
-					      <li>
-					        <a href="#" class="nav-link text-white">
-					          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-					          Dashboard
-					        </a>
-					      </li>
-					      <li>
-					        <a href="#" class="nav-link text-white">
-					          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-					          Orders
-					        </a>
-					      </li>
-					      <li>
-					        <a href="#" class="nav-link text-white">
-					          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-					          Products
-					        </a>
-					      </li>
-					      <li>
-					        <a href="#" class="nav-link text-white">
-					          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-					          Customers
-					        </a>
-					      </li>
-					    </ul>
-					    <hr>
-					    <div class="dropdown">
-					      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-					        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-					        <strong>mdo</strong>
-					      </a>
-					      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-					        <li><a class="dropdown-item" href="#">New project...</a></li>
-					        <li><a class="dropdown-item" href="#">Settings</a></li>
-					        <li><a class="dropdown-item" href="#">Profile</a></li>
-					        <li><hr class="dropdown-divider"></li>
-					        <li><a class="dropdown-item" href="#">Sign out</a></li>
-					      </ul>
-					    </div>
-					</div>
-	 			</div>
+                <?php 
+                        require './sidebar.html';
+                ?>
 	 			<div class="col p-0 m-0">
-	 				<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dar" data-bs-theme="dark">
-					  <div class="container">
-					    <a class="navbar-brand" href="#">Navbar</a>
-					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					      <span class="navbar-toggler-icon"></span>
-					    </button>
-
-
-					    <div class="collapse navbar-collapse" id="navbarNav">
-					      <ul class="navbar-nav">
-					        <li class="nav-item">
-					          <a class="nav-link active" aria-current="page" href="#">Home</a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Features</a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Pricing</a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-					        </li>
-					      </ul>
-					    </div>
-
-					    <form class="d-flex" role="search">
-					      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					      <button class="btn btn-outline-success" type="submit">Search</button>
-					    </form>
-
-					    <div class="dropdown">
-					      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-					        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-					        <strong>mdo</strong>
-					      </a>
-					      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-					        <li><a class="dropdown-item" href="#">New project...</a></li>
-					        <li><a class="dropdown-item" href="#">Settings</a></li>
-					        <li><a class="dropdown-item" href="#">Profile</a></li>
-					        <li><hr class="dropdown-divider"></li>
-					        <li><a class="dropdown-item" href="#">Sign out</a></li>
-					      </ul>
-					    </div>
-					  </div>
-					</nav>
-
+	 				
+                    <?php 
+                        require './navbar.html';
+                    ?>
 
 					<div id="main">
 						
 						<div class="container p-3"> 
 
-							<h3>
-								Productos
-							</h3>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <h3 class="mb-0">Productos</h3>
+                                </div>
+                                <div class="col text-end">
+                                    <a onclick="openModalnewProduct()" class="btn btn-primary">Agregar producto</a>
+                                </div>
+                            </div>
 
-							<div class="row"> 
+							<div class="row mt-3"> 
 
                                 <?php 
                                 
@@ -156,7 +67,9 @@
                                             echo '        <div class="card-body">';
                                             echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
                                             echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
-                                            echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Read More</a>';
+                                            echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver mas</a>';
+                                            echo '            <a onclick="openModalEditProduct()" class="btn">Editar</a>';
+                                            echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn text-danger">Eliminar</a>';
                                             echo '        </div>';
                                             echo '    </div>';
                                             echo '</div>';
@@ -164,6 +77,82 @@
                                     }
 
                                 ?>
+
+                                <div class="modal fade" id="newProduct" tabindex="-1" aria-labelledby="ModalScrollableTitle" aria-hidden="true"  data-bs-backdrop="static" >
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                        
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="ModalScrollableTitle">Nuevo Producto</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                
+                                                <label class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Nombre">
+                                                <!-- <div v-if="nameError" class="text-danger">Por favor, introduce un nombre válido.</div> -->
+
+                                                <label class="form-label">Descripcion</label>
+                                                <input type="text" class="form-control" placeholder="Descripcion">
+                                                <!-- <div v-if="emailError" class="text-danger">Por favor, introduce un correo electrónico válido.</div>
+                                                <div v-if="emailError2" class="text-danger">Correo electronico ya registrado.</div> -->
+
+                                                <label class="form-label">Imagen</label>
+                                                <input type="file" class="form-control" placeholder="Apodo">
+                                                <!-- <div v-if="nicknameError" class="text-danger">Por favor, introduce un apodo válido.</div> -->
+
+                                                <label class="form-label">Precio</label>
+                                                <input type="text" class="form-control" placeholder="Precio">
+                                                <!-- <div v-if="passwordError" class="text-danger">Por favor, introduce contrasenas iguales.</div>
+                                                <div v-if="passwordError2" class="text-danger">Por favor, introduce una contrasena.</div> -->
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-primary">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="ModalScrollableTitle" aria-hidden="true"  data-bs-backdrop="static" >
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                        
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="ModalScrollableTitle">Editar Producto</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                
+                                                <label class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Nombre">
+                                                <!-- <div v-if="nameError" class="text-danger">Por favor, introduce un nombre válido.</div> -->
+
+                                                <label class="form-label">Descripcion</label>
+                                                <input type="text" class="form-control" placeholder="Descripcion">
+                                                <!-- <div v-if="emailError" class="text-danger">Por favor, introduce un correo electrónico válido.</div>
+                                                <div v-if="emailError2" class="text-danger">Correo electronico ya registrado.</div> -->
+
+                                                <label class="form-label">Imagen</label>
+                                                <input type="file" class="form-control" placeholder="Apodo">
+                                                <!-- <div v-if="nicknameError" class="text-danger">Por favor, introduce un apodo válido.</div> -->
+
+                                                <label class="form-label">Precio</label>
+                                                <input type="text" class="form-control" placeholder="Precio">
+                                                <!-- <div v-if="passwordError" class="text-danger">Por favor, introduce contrasenas iguales.</div>
+                                                <div v-if="passwordError2" class="text-danger">Por favor, introduce una contrasena.</div> -->
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-primary">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 							</div>
 
@@ -177,5 +166,6 @@
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
