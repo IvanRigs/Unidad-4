@@ -57,7 +57,7 @@ if (isset($_SESSION['error_message'])) {
                                     echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
                                     echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
                                     echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver más</a>';
-                                    echo '            <a onclick="openModaleditProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['name']) . '\', \'' . htmlspecialchars($product['description']) . '\', \'' . htmlspecialchars($product['features']) . '\')" class="btn">Editar</a>';
+                                    echo '            <a onclick="openModaleditProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['name']) . '\', \'' . htmlspecialchars($product['description']) . '\', \'' . htmlspecialchars($product['features']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn">Editar</a>';
                                     echo '            <a href="?slug=' . urlencode($product['slug']) . '" class="btn text-danger">Eliminar</a>';
                                     echo '        </div>';
                                     echo '    </div>';
@@ -66,6 +66,7 @@ if (isset($_SESSION['error_message'])) {
                             }
                             ?>
 
+                            <!-- Modal para nuevo producto -->
                             <div class="modal fade" id="newProduct" tabindex="-1" aria-labelledby="ModalScrollableTitle" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="modal-content">
@@ -94,6 +95,7 @@ if (isset($_SESSION['error_message'])) {
                                 </div>
                             </div>
 
+                            <!-- Modal para editar producto -->
                             <div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="ModalScrollableTitle" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="modal-content">
@@ -101,8 +103,9 @@ if (isset($_SESSION['error_message'])) {
                                             <h1 class="modal-title fs-5">Editar Producto</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body" id="editProductBody">
+                                        <div class="modal-body">
                                             <form method="POST" action="./app/ProductController.php" id="editForm">
+                                                <input type="hidden" name="id" id="editProductId">
                                                 <label class="form-label">Nombre</label>
                                                 <input type="text" class="form-control" name="name" required>
                                                 <label class="form-label">Slug</label>
@@ -131,17 +134,13 @@ if (isset($_SESSION['error_message'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-
-        var slug;
-
         function openModalnewProduct() {
             var modal = new bootstrap.Modal(document.getElementById('newProduct'));
             modal.show();
         }
 
-        function openModaleditProduct(slug, name, description, features) {
-            this.slug = slug;
-            console.log(this.slug);
+        function openModaleditProduct(slug, name, description, features, id) {
+            document.getElementById('editProductId').value = id;
             document.querySelector('#editForm [name="name"]').value = name;
             document.querySelector('#editForm [name="slug"]').value = slug;
             document.querySelector('#editForm [name="description"]').value = description;
