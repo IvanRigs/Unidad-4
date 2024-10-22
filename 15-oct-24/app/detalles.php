@@ -4,8 +4,9 @@ session_start();
 
 class detalles {
     // Función para obtener detalles del producto
-    function getProductDetails() {
-        $apiUrl = 'https://crud.jonathansoto.mx/api/products/slug/' . $_GET['slug'];
+    function getProductDetails($slug) {
+        $token = $_SESSION['user_token'];
+        $apiUrl = 'https://crud.jonathansoto.mx/api/products/slug/' . $slug;
     
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -13,7 +14,7 @@ class detalles {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer 657|aMkXO4b8SEOJsSnQK6p84KfkvmbEckT3fyjKzovr'
+                'Authorization: Bearer ' . $token
             ),
         ));
     

@@ -5,7 +5,7 @@ session_start();
 
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../productos.php");
+    header("Location: ../home.php");
     exit();
 }
 
@@ -41,7 +41,7 @@ class AuthController
         // Si el código de respuesta es 2, es un inicio de sesión exitoso
         if (isset($responseData['code']) && $responseData['code'] == 2) {
             $this->setUserSession($responseData['data']);
-            header("Location: ../productos.php");
+            header("Location: ../home.php");
             exit();
         } else {
             $this->handleLoginError();

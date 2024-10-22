@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $_SESSION['error_message'] = 'Error al agregar el producto.';
     }
 
-    header('Location: ../productos.php'); 
+    header('Location: ../home.php'); 
     exit;
 }
 ?>

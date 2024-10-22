@@ -2,7 +2,7 @@
 include './app/detalles.php';
 
 $productController = new detalles();
-$productResponse = $productController->getProductDetails();
+$productResponse = $productController->getProductDetails($_GET['slug']);
 $productData = $productResponse['data']; // Acceder directamente a los datos del producto
 ?>
 
