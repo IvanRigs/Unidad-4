@@ -13,7 +13,7 @@ class detalles {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer 367|wY3RzBXg8UTYEqX06V480MWzi1QPmKt6oElAQpxI'
+                'Authorization: Bearer 657|aMkXO4b8SEOJsSnQK6p84KfkvmbEckT3fyjKzovr'
             ),
         ));
     

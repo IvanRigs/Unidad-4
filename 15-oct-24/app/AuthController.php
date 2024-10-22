@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// if (isset($_POST))
+
+
 if (isset($_SESSION['user_id'])) {
     header("Location: ../productos.php");
     exit();
@@ -88,4 +91,5 @@ class AuthController
     public static function validateInputs($email, $password) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($password) >= 6;
     }
+
 }
