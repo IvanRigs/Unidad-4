@@ -46,6 +46,25 @@ class ProductController {
         curl_close($curl);
         return json_decode($response, true);
     }
+
+    public function deleteProduct($productId) {
+        $curl = curl_init();
+        $token = $_SESSION['user_token'];
+    
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/' . $productId,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+            ),
+        ));
+    
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
+    }
+    
 }
 
 // Manejo de la acción de agregar producto
@@ -61,12 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     if ($_POST['action'] === 'add_product') {
         $response = $productController->addProduct($productData);
-        $_SESSION['success_message'] = $response ? 'Producto agregado exitosamente.' : 'Error al agregar el producto.';
     } elseif ($_POST['action'] === 'edit_product') {
         $productData['id'] = $_POST['id'];
         $response = $productController->editProduct($productData);
-        $_SESSION['success_message'] = $response ? 'Producto editado exitosamente.' : 'Error al editar el producto.';
-    }
+    } elseif ($_POST['action'] === 'delete_product') {
+        $productId = $_POST['id'];
+        $response = $productController->deleteProduct($productId);
+    }    
 
     header('Location: ../home.php'); 
     exit;

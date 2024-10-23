@@ -58,7 +58,7 @@ if (isset($_SESSION['error_message'])) {
                                     echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
                                     echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver más</a>';
                                     echo '            <a onclick="openModaleditProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['name']) . '\', \'' . htmlspecialchars($product['description']) . '\', \'' . htmlspecialchars($product['features']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn">Editar</a>';
-                                    echo '            <a href="?slug=' . urlencode($product['slug']) . '" class="btn text-danger">Eliminar</a>';
+                                    echo '            <a onclick="openModalDeleteProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn text-danger">Eliminar</a>';
                                     echo '        </div>';
                                     echo '    </div>';
                                     echo '</div>';
@@ -124,7 +124,7 @@ if (isset($_SESSION['error_message'])) {
                                     </div>
                                 </div>
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>
@@ -132,6 +132,7 @@ if (isset($_SESSION['error_message'])) {
         </div>
     </div>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function openModalnewProduct() {
@@ -149,6 +150,40 @@ if (isset($_SESSION['error_message'])) {
             var modal = new bootstrap.Modal(document.getElementById('editProduct'));
             modal.show();
         }
+
+        function openModalDeleteProduct(slug, id) {
+        swal({
+            title: "Estas seguro?",
+            text: "Deseas eliminar el producto?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = './app/ProductController.php';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id';
+                input.value = id;
+                form.appendChild(input);
+
+                var actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = 'delete_product';
+                form.appendChild(actionInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                swal("No se ha eliminado.");
+            }
+        });
+    }
     </script>
 </body>
 </html>
