@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $response = $productController->addProduct($productData);
         $_SESSION['success_message'] = $response ? 'Producto agregado exitosamente.' : 'Error al agregar el producto.';
     } elseif ($_POST['action'] === 'edit_product') {
-        $productData['id'] = $_POST['id']; // Asegúrate de enviar el ID del producto
+        $productData['id'] = $_POST['id'];
         $response = $productController->editProduct($productData);
         $_SESSION['success_message'] = $response ? 'Producto editado exitosamente.' : 'Error al editar el producto.';
     }
