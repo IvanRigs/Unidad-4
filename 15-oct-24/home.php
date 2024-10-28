@@ -75,7 +75,7 @@ if (isset($_SESSION['error_message'])) {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="POST" action="./app/ProductController.php">
+                                            <form method="POST" action="./app/ProductController.php" enctype="multipart/form-data">
                                                 <label class="form-label">Nombre</label>
                                                 <input type="text" class="form-control" placeholder="Nombre" name="name" required>
                                                 <label class="form-label">Slug</label>
@@ -84,6 +84,8 @@ if (isset($_SESSION['error_message'])) {
                                                 <textarea class="form-control" placeholder="Descripción" name="description" required></textarea>
                                                 <label class="form-label">Características</label>
                                                 <input type="text" class="form-control" placeholder="Características" name="features">
+                                                <label class="form-label">Imagen</label>
+                                                <input type="file" class="form-control" name="cover">
                                                 <input type="hidden" name="action" value="add_product">
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </form>
@@ -104,7 +106,7 @@ if (isset($_SESSION['error_message'])) {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="POST" action="./app/ProductController.php" id="editForm">
+                                            <form method="POST" action="./app/ProductController.php" id="editForm" enctype="multipart/form-data">
                                                 <input type="hidden" name="id" id="editProductId">
                                                 <label class="form-label">Nombre</label>
                                                 <input type="text" class="form-control" name="name" required>
@@ -114,6 +116,8 @@ if (isset($_SESSION['error_message'])) {
                                                 <textarea class="form-control" name="description" required></textarea>
                                                 <label class="form-label">Características</label>
                                                 <input type="text" class="form-control" name="features">
+                                                <!-- <label class="form-label">Imagen</label>
+                                                <input type="file" class="form-control" name="cover">  -->
                                                 <input type="hidden" name="action" value="edit_product">
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </form>
