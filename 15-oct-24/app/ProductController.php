@@ -77,6 +77,26 @@ class ProductController {
         curl_close($curl);
         return json_decode($response, true);
     }
+
+    public function getBrands() {
+        $curl = curl_init();
+        $token = $_SESSION['user_token'];
+    
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/brands',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token
+            ),
+        ));
+    
+        $response = curl_exec($curl);
+        curl_close($curl);
+    
+        return json_decode($response, true);
+    }
+
+    
 }
 
 // Manejo de la acción de agregar producto
@@ -87,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         'description' => $_POST['description'],
         'features' => $_POST['features'],
         'cover' => $_FILES['cover'], 
+        'brand_id' => $_POST['brand_id'],
     ];
 
     $productController = new ProductController();

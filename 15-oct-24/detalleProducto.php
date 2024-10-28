@@ -45,6 +45,7 @@ $productData = $productResponse['data']; // Acceder directamente a los datos del
                         <div class="col-md-8">
                             <h5 class="card-title"><?php echo htmlspecialchars($productData['name']); ?></h5>
                             <p class="card-text"><?php echo htmlspecialchars($productData['description']); ?></p>
+                            <p class="card-text">Marca: <?php echo htmlspecialchars($productData['brand']['name']); ?></p>
                             <p class="card-text"><strong>Precio:</strong> <?php echo htmlspecialchars($productData['presentations'][0]['price'][0]['amount']); ?></p>
                             <a href="#" class="btn btn-primary">Comprar ahora</a>
                         </div>

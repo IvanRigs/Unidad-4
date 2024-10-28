@@ -56,6 +56,7 @@ if (isset($_SESSION['error_message'])) {
                                     echo '        <div class="card-body">';
                                     echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
                                     echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
+                                    echo '            <p class="card-text">Marca: ' . htmlspecialchars($product['brand']['name']) . '</p>';
                                     echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver más</a>';
                                     echo '            <a onclick="openModaleditProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['name']) . '\', \'' . htmlspecialchars($product['description']) . '\', \'' . htmlspecialchars($product['features']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn">Editar</a>';
                                     echo '            <a onclick="openModalDeleteProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn text-danger">Eliminar</a>';
@@ -64,6 +65,10 @@ if (isset($_SESSION['error_message'])) {
                                     echo '</div>';
                                 }
                             }
+                            ?>
+
+                            <?php
+                            $brands = $productController->getBrands();
                             ?>
 
                             <!-- Modal para nuevo producto -->
@@ -86,6 +91,17 @@ if (isset($_SESSION['error_message'])) {
                                                 <input type="text" class="form-control" placeholder="Características" name="features">
                                                 <label class="form-label">Imagen</label>
                                                 <input type="file" class="form-control" name="cover">
+                                                <label class="form-label">Marca</label>
+                                                <select class="form-control" name="brand_id" required>
+                                                    <option value="">Seleccione una marca</option>
+                                                    <?php
+                                                    if (isset($brands['data'])) {
+                                                        foreach ($brands['data'] as $brand) {
+                                                            echo '<option value="' . htmlspecialchars($brand['id']) . '">' . htmlspecialchars($brand['name']) . '</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
                                                 <input type="hidden" name="action" value="add_product">
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </form>
@@ -116,6 +132,18 @@ if (isset($_SESSION['error_message'])) {
                                                 <textarea class="form-control" name="description" required></textarea>
                                                 <label class="form-label">Características</label>
                                                 <input type="text" class="form-control" name="features">
+
+                                                <label class="form-label">Marca</label>
+                                                <select class="form-control" name="brand_id" id="editBrandId" required>
+                                                    <option value="">Seleccione una marca</option>
+                                                    <?php
+                                                    if (isset($brands['data'])) {
+                                                        foreach ($brands['data'] as $brand) {
+                                                            echo '<option value="' . htmlspecialchars($brand['id']) . '">' . htmlspecialchars($brand['name']) . '</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
                                                 <!-- <label class="form-label">Imagen</label>
                                                 <input type="file" class="form-control" name="cover">  -->
                                                 <input type="hidden" name="action" value="edit_product">
