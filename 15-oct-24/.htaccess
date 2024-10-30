@@ -1,0 +1,17 @@
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Enmascarar la ruta a login.php
+RewriteRule ^home$ home.php [L]
+
+# Enmascarar la ruta a home.php
+RewriteRule ^login$ login.php [L]
+
+# Enmascarar la ruta a detalleProducto.php?slug=xxx
+RewriteRule ^product/([^/]+)/?$ detalleProducto.php?slug=$1 [L,QSA]
+
+# Enmascarar la ruta a app/AuthController.php
+RewriteRule ^auth$ app/AuthController.php [L]
+
+# Enmascarar la ruta a app/ProductController.php
+RewriteRule ^resources$ app/ProductController.php [L]

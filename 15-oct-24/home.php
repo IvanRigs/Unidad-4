@@ -1,11 +1,17 @@
 <?php
 session_start();
 
+// Generar un token y almacenarlo en la sesión
+if (!isset($_SESSION['user_token'])) {
+    $_SESSION['user_token'] = bin2hex(random_bytes(32));
+}
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
+// Mensajes de éxito y error
 if (isset($_SESSION['success_message'])) {
     echo "<div class='alert alert-success'>{$_SESSION['success_message']}</div>";
     unset($_SESSION['success_message']);
@@ -57,7 +63,7 @@ if (isset($_SESSION['error_message'])) {
                                     echo '            <h5 class="card-title">' . htmlspecialchars($product['name']) . '</h5>';
                                     echo '            <p class="card-text">' . htmlspecialchars($product['description']) . '</p>';
                                     echo '            <p class="card-text">Marca: ' . htmlspecialchars($product['brand']['name']) . '</p>';
-                                    echo '            <a href="detalleProducto.php?slug=' . urlencode($product['slug']) . '" class="btn btn-primary">Ver más</a>';
+                                    echo '            <a href="product/' . htmlspecialchars($product['slug']) . '" class="btn btn-primary">Ver más</a>';
                                     echo '            <a onclick="openModaleditProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['name']) . '\', \'' . htmlspecialchars($product['description']) . '\', \'' . htmlspecialchars($product['features']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn">Editar</a>';
                                     echo '            <a onclick="openModalDeleteProduct(\'' . htmlspecialchars($product['slug']) . '\', \'' . htmlspecialchars($product['id']) . '\')" class="btn text-danger">Eliminar</a>';
                                     echo '        </div>';
@@ -103,6 +109,8 @@ if (isset($_SESSION['error_message'])) {
                                                     ?>
                                                 </select>
                                                 <input type="hidden" name="action" value="add_product">
+                                                <!-- Campo oculto para el token -->
+                                                <input type="hidden" name="token" value="<?php echo $_SESSION['user_token']; ?>">
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </form>
                                         </div>
@@ -132,7 +140,6 @@ if (isset($_SESSION['error_message'])) {
                                                 <textarea class="form-control" name="description" required></textarea>
                                                 <label class="form-label">Características</label>
                                                 <input type="text" class="form-control" name="features">
-
                                                 <label class="form-label">Marca</label>
                                                 <select class="form-control" name="brand_id" id="editBrandId" required>
                                                     <option value="">Seleccione una marca</option>
@@ -144,9 +151,8 @@ if (isset($_SESSION['error_message'])) {
                                                     }
                                                     ?>
                                                 </select>
-                                                <!-- <label class="form-label">Imagen</label>
-                                                <input type="file" class="form-control" name="cover">  -->
                                                 <input type="hidden" name="action" value="edit_product">
+                                                <input type="hidden" name="token" value="<?php echo $_SESSION['user_token']; ?>"> <!-- Campo oculto para el token -->
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </form>
                                         </div>
@@ -178,44 +184,42 @@ if (isset($_SESSION['error_message'])) {
             document.querySelector('#editForm [name="slug"]').value = slug;
             document.querySelector('#editForm [name="description"]').value = description;
             document.querySelector('#editForm [name="features"]').value = features;
-
             var modal = new bootstrap.Modal(document.getElementById('editProduct'));
             modal.show();
         }
 
         function openModalDeleteProduct(slug, id) {
-        swal({
-            title: "Estas seguro?",
-            text: "Deseas eliminar el producto?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = './app/ProductController.php';
-
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'id';
-                input.value = id;
-                form.appendChild(input);
-
-                var actionInput = document.createElement('input');
-                actionInput.type = 'hidden';
-                actionInput.name = 'action';
-                actionInput.value = 'delete_product';
-                form.appendChild(actionInput);
-
-                document.body.appendChild(form);
-                form.submit();
-            } else {
-                swal("No se ha eliminado.");
-            }
-        });
-    }
+            swal({
+                title: "¿Estás seguro?",
+                text: "¡No podrás recuperar este producto!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = './app/ProductController.php';
+                    var hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = 'action';
+                    hiddenField.value = 'delete_product';
+                    form.appendChild(hiddenField);
+                    var idField = document.createElement('input');
+                    idField.type = 'hidden';
+                    idField.name = 'id';
+                    idField.value = id;
+                    form.appendChild(idField);
+                    var tokenField = document.createElement('input');
+                    tokenField.type = 'hidden';
+                    tokenField.name = 'token';
+                    tokenField.value = '<?php echo $_SESSION['user_token']; ?>'; // Token oculto
+                    form.appendChild(tokenField);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
     </script>
 </body>
 </html>

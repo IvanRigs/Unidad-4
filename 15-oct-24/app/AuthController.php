@@ -5,7 +5,7 @@ session_start();
 
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../home.php");
+    header("Location: ../home");
     exit();
 }
 
@@ -41,7 +41,7 @@ class AuthController
         // Si el código de respuesta es 2, es un inicio de sesión exitoso
         if (isset($responseData['code']) && $responseData['code'] == 2) {
             $this->setUserSession($responseData['data']);
-            header("Location: ../home.php");
+            header("Location: ../home");
             exit();
         } else {
             $this->handleLoginError();
@@ -83,7 +83,7 @@ class AuthController
     private function handleLoginError() {
         $_SESSION['login_error'] = "Credenciales incorrectas. Inténtalo de nuevo.";
         unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_data']);
-        header("Location: ../login.php");
+        header("Location: ../login");
         exit();
     }
 

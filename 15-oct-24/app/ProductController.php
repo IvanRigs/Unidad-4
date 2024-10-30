@@ -101,6 +101,14 @@ class ProductController {
 
 // Manejo de la acción de agregar producto
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+
+    // Verificar el token
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['user_token']) {
+        $_SESSION['error_message'] = "Token de sesión inválido.";
+        header('Location: ../home');
+        exit;
+    }
+
     $productData = [
         'name' => $_POST['name'],
         'slug' => $_POST['slug'],
@@ -123,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $response = $productController->deleteProduct($productId);
     }    
 
-    header('Location: ../home.php'); 
+    header('Location: ../home'); 
     exit;
 }
 ?>
