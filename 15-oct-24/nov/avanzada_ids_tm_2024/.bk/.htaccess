@@ -1,0 +1,12 @@
+Options +FollowSymLinks -MultiViews -Indexes
+RewriteEngine on
+
+
+#páginas
+RewriteRule ^login?$ index.php
+RewriteRule ^home?$ home.php
+
+
+#controladores
+RewriteRule ^auth?$ app/AuthController.php
+RewriteRule ^products?$ app/ProductController.php

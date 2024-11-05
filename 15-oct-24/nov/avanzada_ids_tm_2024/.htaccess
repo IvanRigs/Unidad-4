@@ -1,0 +1,17 @@
+# Habilitar el módulo de reescritura
+RewriteEngine On
+
+# Asegurarte de que no se acceda a archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Enmascarar las URL para las vistas de productos
+RewriteRule ^productos/nuevo/?$ views/products/create.php [L]
+RewriteRule ^productos/editar/?$ views/products/edit.php?id=$1 [L]
+RewriteRule ^productos/eliminar//?$ views/products/delete.php?id=$1 [L]
+RewriteRule ^productos/?$ views/products/index.php [L]
+
+# Ruta para la vista principal
+RewriteRule ^home/?$ views/home.php [L]
+
+
