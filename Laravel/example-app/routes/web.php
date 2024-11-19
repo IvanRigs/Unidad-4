@@ -21,11 +21,15 @@ Route::get('/operacion/{tipo}/{x}/{x1}', function ($tipo, $x, $x1) {
         $result = $x * $x1;
     }
 
-    return view('Hello ' . $result);
+    return ('Hello ' . $result);
 }) -> where(['x' => '[0-9]+', 'x1' => '[0-9]+']);
 
 Route::get('/saludo/{nombre}/{apellido}', function ($nombre, $apellido) {
-    return view('Hola '. $nombre .' '. $apellido);
+    return ('Hola '. $nombre .' '. $apellido);
+});
+
+Route::get('/saludo/{nombre}/{apellido}', function ($nombre) {
+    return view('Hola '. $nombre);
 });
 
 Route::get('/dashboard', function () {
