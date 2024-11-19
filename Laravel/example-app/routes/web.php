@@ -8,9 +8,25 @@ Route::get('/', function () {
 });
 
 Route::get('/operacion/{tipo}/{x}/{x1}', function ($tipo, $x, $x1) {
-    $result = $x + $x1;
+
+    $result = 0;
+
+    if ($tipo == 'suma') {
+        $result = $x + $x1;
+    } elseif ($tipo == 'resta') {
+        $result = $x - $x1;
+    } elseif ($tipo == 'division') {
+        $result = $x / $x1;
+    } elseif ($tipo == 'multiplicacion') {
+        $result = $x * $x1;
+    }
+
     return view('Hello ' . $result);
 }) -> where(['x' => '[0-9]+', 'x1' => '[0-9]+']);
+
+Route::get('/saludo/{nombre}/{apellido}', function ($nombre, $apellido) {
+    return view('Hola '. $nombre .' '. $apellido);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
