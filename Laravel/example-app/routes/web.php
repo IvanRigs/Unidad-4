@@ -7,6 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/operacion/{tipo}/{x}/{x1}', function ($tipo, $x, $x1) {
+    $result = $x + $x1;
+    return view('Hello ' . $result);
+}) -> where(['x' => '[0-9]+', 'x1' => '[0-9]+']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
